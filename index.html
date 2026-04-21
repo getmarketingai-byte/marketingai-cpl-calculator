@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cost Per Lead Calculator — Free AU Marketing Tool</title>
+  <meta name="description" content="Calculate your cost per lead (CPL) instantly. Free tool for Australian businesses running Google Ads, Facebook Ads, or organic campaigns.">
+  <meta property="og:title" content="Cost Per Lead Calculator — Free AU Marketing Tool">
+  <meta property="og:description" content="Calculate your cost per lead (CPL) instantly. Free tool for Australian businesses.">
+  <meta property="og:type" content="website">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7076137753154472"
+      crossorigin="anonymous"></script>
+  <!-- Vercel Analytics -->
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- Vercel Speed Insights -->
+  <script>window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };</script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a2e;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header .logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    header .logo span { color: #6c63ff; }
+
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 60px 24px 48px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      margin: -28px auto 32px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border: 2px solid #e0e0e0;
+      background: #fff;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #666;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      border-color: #6c63ff;
+      background: #6c63ff;
+      color: #fff;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .calc-section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #1a1a2e;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    .input-group .hint {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    .input-group input[type="number"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .input-group input[type="number"]:focus {
+      border-color: #6c63ff;
+    }
+
+    .calc-btn {
+      width: 100%;
+      padding: 14px;
+      background: #6c63ff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+
+    .calc-btn:hover { background: #5a52e0; }
+
+    .result-box {
+      display: none;
+      background: #f0eeff;
+      border: 2px solid #6c63ff;
+      border-radius: 10px;
+      padding: 24px;
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    .result-box.visible { display: block; }
+
+    .result-main {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #6c63ff;
+      margin-bottom: 4px;
+    }
+
+    .result-label {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    .result-breakdown {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .result-item {
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .result-item .val {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    .result-item .lbl {
+      font-size: 0.78rem;
+      color: #777;
+      margin-top: 2px;
+    }
+
+    .perf-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin: 10px 0 4px;
+    }
+
+    .perf-below { background: #d4edda; color: #155724; }
+    .perf-average { background: #fff3cd; color: #856404; }
+    .perf-above { background: #ffe0e0; color: #c00; }
+
+    .perf-context {
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .optin-section {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .optin-section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .optin-section p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    .optin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .optin-form input[type="email"],
+    .optin-form input[type="text"] {
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .optin-form input:focus { border-color: #6c63ff; }
+
+    .optin-form .consent-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.83rem;
+      color: #555;
+    }
+
+    .optin-form .consent-row input[type="checkbox"] {
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .optin-form button {
+      padding: 12px;
+      background: #1a1a2e;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .optin-form button:hover { background: #0f3460; }
+
+    .optin-success {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      color: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .cta-section h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .cta-section p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 20px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #6c63ff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .cta-btn:hover { background: #5a52e0; }
+
+    .disclaimer {
+      font-size: 0.8rem;
+      color: #888;
+      text-align: center;
+      padding: 12px 24px 24px;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .info-section {
+      margin-bottom: 40px;
+    }
+
+    .info-section h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .info-section p {
+      color: #444;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .benchmark-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .benchmark-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .benchmark-card .sector {
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .benchmark-card .rate {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #6c63ff;
+    }
+
+    .benchmark-card .note {
+      font-size: 0.78rem;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    footer {
+      background: #1a1a2e;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.85rem;
+    }
+
+    footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+
+    @media (max-width: 480px) {
+      .card { padding: 20px; }
+      .tabs { flex-direction: column; }
+      .result-main { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="https://marketing-ai-psi-nine.vercel.app/" class="logo">Marketing<span>AI</span></a>
+</header>
+
+<div class="hero">
+  <h1>Cost Per Lead (CPL) Calculator</h1>
+  <p>Calculate your CPL instantly and see how it compares to AU benchmarks for Google Ads, Facebook Ads, and Organic/SEO.</p>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('google')">Google Ads</button>
+      <button class="tab-btn" onclick="switchTab('facebook')">Facebook/Meta</button>
+      <button class="tab-btn" onclick="switchTab('organic')">Organic/SEO</button>
+    </div>
+
+    <!-- Google Ads -->
+    <div class="tab-panel active" id="tab-google">
+      <div class="calc-section">
+        <h2>Google Ads — Cost Per Lead</h2>
+        <div class="input-group">
+          <label for="google-spend">Total Ad Spend (AUD $)</label>
+          <div class="hint">Total amount spent on Google Ads in the period</div>
+          <input type="number" id="google-spend" placeholder="e.g. 2000" min="0" step="0.01">
+        </div>
+        <div class="input-group">
+          <label for="google-leads">Leads Generated</label>
+          <div class="hint">Form fills, calls, or other qualified lead actions</div>
+          <input type="number" id="google-leads" placeholder="e.g. 18" min="0" step="1">
+        </div>
+        <button class="calc-btn" onclick="calcCPL('google')">Calculate My Google Ads CPL</button>
+
+        <div class="result-box" id="result-google">
+          <div class="result-label">Your Google Ads Cost Per Lead</div>
+          <div class="result-main" id="val-google-cpl">—</div>
+          <div id="google-badge-wrap"></div>
+          <div class="perf-context" id="google-context"></div>
+          <div class="result-breakdown">
+            <div class="result-item">
+              <div class="val" id="val-google-spend">—</div>
+              <div class="lbl">Ad Spend</div>
+            </div>
+            <div class="result-item">
+              <div class="val" id="val-google-leads">—</div>
+              <div class="lbl">Leads</div>
+            </div>
+            <div class="result-item">
+              <div class="val" id="val-google-benchmark">$50–$150</div>
+              <div class="lbl">AU Benchmark</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Facebook/Meta -->
+    <div class="tab-panel" id="tab-facebook">
+      <div class="calc-section">
+        <h2>Facebook/Meta Ads — Cost Per Lead</h2>
+        <div class="input-group">
+          <label for="facebook-spend">Total Ad Spend (AUD $)</label>
+          <div class="hint">Total amount spent on Facebook or Instagram Ads in the period</div>
+          <input type="number" id="facebook-spend" placeholder="e.g. 1200" min="0" step="0.01">
+        </div>
+        <div class="input-group">
+          <label for="facebook-leads">Leads Generated</label>
+          <div class="hint">Lead form completions, messenger contacts, or landing page conversions</div>
+          <input type="number" id="facebook-leads" placeholder="e.g. 24" min="0" step="1">
+        </div>
+        <button class="calc-btn" onclick="calcCPL('facebook')">Calculate My Facebook Ads CPL</button>
+
+        <div class="result-box" id="result-facebook">
+          <div class="result-label">Your Facebook/Meta Cost Per Lead</div>
+          <div class="result-main" id="val-facebook-cpl">—</div>
+          <div id="facebook-badge-wrap"></div>
+          <div class="perf-context" id="facebook-context"></div>
+          <div class="result-breakdown">
+            <div class="result-item">
+              <div class="val" id="val-facebook-spend">—</div>
+              <div class="lbl">Ad Spend</div>
+            </div>
+            <div class="result-item">
+              <div class="val" id="val-facebook-leads">—</div>
+              <div class="lbl">Leads</div>
+            </div>
+            <div class="result-item">
+              <div class="val" id="val-facebook-benchmark">$20–$80</div>
+              <div class="lbl">AU Benchmark</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Organic/SEO -->
+    <div class="tab-panel" id="tab-organic">
+      <div class="calc-section">
+        <h2>Organic/SEO — Cost Per Lead</h2>
+        <div class="input-group">
+          <label for="organic-spend">Total Monthly SEO Spend (AUD $)</label>
+          <div class="hint">Content creation, tools, freelancer costs — exclude any paid ads</div>
+          <input type="number" id="organic-spend" placeholder="e.g. 500" min="0" step="0.01">
+        </div>
+        <div class="input-group">
+          <label for="organic-leads">Leads from Organic Channels</label>
+          <div class="hint">Leads attributed to organic search, blog, or SEO content</div>
+          <input type="number" id="organic-leads" placeholder="e.g. 30" min="0" step="1">
+        </div>
+        <button class="calc-btn" onclick="calcCPL('organic')">Calculate My Organic CPL</button>
+
+        <div class="result-box" id="result-organic">
+          <div class="result-label">Your Organic/SEO Cost Per Lead</div>
+          <div class="result-main" id="val-organic-cpl">—</div>
+          <div id="organic-badge-wrap"></div>
+          <div class="perf-context" id="organic-context"></div>
+          <div class="result-breakdown">
+            <div class="result-item">
+              <div class="val" id="val-organic-spend">—</div>
+              <div class="lbl">SEO Spend</div>
+            </div>
+            <div class="result-item">
+              <div class="val" id="val-organic-leads">—</div>
+              <div class="lbl">Leads</div>
+            </div>
+            <div class="result-item">
+              <div class="val" id="val-organic-benchmark">$5–$30</div>
+              <div class="lbl">AU Benchmark</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Opt-in -->
+  <div class="optin-section">
+    <h3>Get AU Industry CPL Benchmarks by Sector</h3>
+    <p>We'll email you CPL benchmarks across Australian industries — health, trades, consulting, professional services, and more — so you can see exactly how your cost per lead stacks up against businesses like yours.</p>
+    <form class="optin-form" id="optin-form" onsubmit="submitOptin(event)">
+      <input type="text" name="fields[name]" placeholder="First name" required>
+      <input type="email" name="fields[email]" placeholder="Email address" required>
+      <div class="consent-row">
+        <input type="checkbox" id="consent" required>
+        <label for="consent">I agree to receive the benchmarks email from MarketingAI. I can unsubscribe at any time. (Australian Spam Act 2003 compliant.)</label>
+      </div>
+      <button type="submit">Send Me the Benchmarks</button>
+    </form>
+    <div class="optin-success" id="optin-success">✓ You're in — benchmarks on the way.</div>
+  </div>
+
+  <!-- $149 CTA -->
+  <div class="cta-section">
+    <h3>Want a Done-With-You Marketing System? MarketingAI — $149 once-off setup.</h3>
+    <p>LinkedIn content calendar, outreach templates, and email nurture sequence — built to your business. You run it. No retainer.</p>
+    <a href="https://buy.stripe.com/cNi8wR0wZd8lePh01cbsc00" class="cta-btn">Get the $149 Setup →</a>
+  </div>
+
+  <div class="disclaimer">
+    Outcomes vary by business, market, offer quality, and execution consistency. MarketingAI configures and delivers marketing systems — results are not guaranteed and depend on how the client uses the system in their specific context.
+  </div>
+
+  <!-- Info / SEO copy -->
+  <div class="info-section">
+    <h2>What Is Cost Per Lead (CPL)?</h2>
+    <p>Cost per lead (CPL) tells you how much you're spending to acquire each potential customer. It's one of the most important metrics for Australian businesses running paid ads or content marketing — because it shows whether your marketing spend is efficient before you scale.</p>
+    <p>The formula is simple: <strong>CPL = Total Marketing Spend ÷ Number of Leads Generated</strong>. If you spent $2,000 on Google Ads and generated 20 leads, your CPL is $100.</p>
+    <p>A lower CPL isn't always better — it depends on your offer value. A $100 CPL is excellent if your average customer is worth $3,000, but unsustainable if you're selling a $200 product. The key is understanding your CPL relative to your close rate and customer lifetime value.</p>
+
+    <h2 style="margin-top:28px; font-size:1.2rem;">AU Average CPL Benchmarks by Channel</h2>
+    <p>These are indicative benchmarks for Australian service businesses. Actual CPL varies significantly by industry, offer, targeting, and ad quality.</p>
+
+    <div class="benchmark-grid">
+      <div class="benchmark-card">
+        <div class="sector">Google Ads</div>
+        <div class="rate">$50–$150</div>
+        <div class="note">AU service businesses average</div>
+      </div>
+      <div class="benchmark-card">
+        <div class="sector">Facebook/Meta Ads</div>
+        <div class="rate">$20–$80</div>
+        <div class="note">AU average across industries</div>
+      </div>
+      <div class="benchmark-card">
+        <div class="sector">Organic/SEO</div>
+        <div class="rate">$5–$30</div>
+        <div class="note">Lower over time as content compounds</div>
+      </div>
+      <div class="benchmark-card">
+        <div class="sector">Professional Services</div>
+        <div class="rate">$80–$200</div>
+        <div class="note">Legal, accounting, consulting</div>
+      </div>
+      <div class="benchmark-card">
+        <div class="sector">Health &amp; Allied Health</div>
+        <div class="rate">$30–$100</div>
+        <div class="note">Physio, chiro, psychology</div>
+      </div>
+      <div class="benchmark-card">
+        <div class="sector">Trades &amp; Construction</div>
+        <div class="rate">$20–$60</div>
+        <div class="note">High-intent local search</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 MarketingAI · <a href="https://marketing-ai-psi-nine.vercel.app/">marketing-ai-psi-nine.vercel.app</a></p>
+</footer>
+
+<script>
+  function switchTab(tab) {
+    const tabs = ['google', 'facebook', 'organic'];
+    document.querySelectorAll('.tab-btn').forEach((b, i) => {
+      b.classList.toggle('active', tabs[i] === tab);
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+  }
+
+  // Benchmarks: [low, high] for each channel
+  const BENCHMARKS = {
+    google:   { low: 50,  high: 150, label: '$50–$150' },
+    facebook: { low: 20,  high: 80,  label: '$20–$80'  },
+    organic:  { low: 5,   high: 30,  label: '$5–$30'   }
+  };
+
+  function formatCurrency(val) {
+    return '$' + val.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function calcCPL(channel) {
+    const spend = parseFloat(document.getElementById(channel + '-spend').value);
+    const leads = parseFloat(document.getElementById(channel + '-leads').value);
+
+    if (!spend || !leads || spend <= 0 || leads <= 0) {
+      alert('Please enter valid values for spend and leads.');
+      return;
+    }
+
+    const cpl = spend / leads;
+    const b = BENCHMARKS[channel];
+
+    let badgeClass, badgeText, context;
+
+    if (cpl < b.low) {
+      badgeClass = 'perf-below';
+      badgeText = '★ Below AU Average — Efficient';
+      context = `AU average for this channel is ${b.label}. Your CPL of ${formatCurrency(cpl)} is better than average — focus on scaling while maintaining lead quality.`;
+    } else if (cpl <= b.high) {
+      badgeClass = 'perf-average';
+      badgeText = '~ Within AU Average Range';
+      context = `Your CPL of ${formatCurrency(cpl)} sits within the AU average range of ${b.label} for this channel. Review targeting and ad creative to reduce CPL further.`;
+    } else {
+      badgeClass = 'perf-above';
+      badgeText = '⚠ Above AU Average';
+      context = `Your CPL of ${formatCurrency(cpl)} is above the AU average range of ${b.label}. Review your targeting, landing page, and offer to improve efficiency.`;
+    }
+
+    document.getElementById('val-' + channel + '-cpl').textContent = formatCurrency(cpl);
+    document.getElementById(channel + '-badge-wrap').innerHTML =
+      `<span class="perf-badge ${badgeClass}">${badgeText}</span>`;
+    document.getElementById(channel + '-context').textContent = context;
+    document.getElementById('val-' + channel + '-spend').textContent = formatCurrency(spend);
+    document.getElementById('val-' + channel + '-leads').textContent = Math.round(leads).toLocaleString('en-AU');
+
+    document.getElementById('result-' + channel).classList.add('visible');
+  }
+
+  function submitOptin(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
+    fetch('https://assets.mailerlite.com/jsonp/2282416/forms/185339817098216933/subscribe', {
+      method: 'POST',
+      body: data
+    }).then(() => {
+      form.style.display = 'none';
+      document.getElementById('optin-success').style.display = 'block';
+    }).catch(() => {
+      form.style.display = 'none';
+      document.getElementById('optin-success').style.display = 'block';
+    });
+  }
+</script>
+
+</body>
+</html>
