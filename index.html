@@ -701,6 +701,7 @@
   }
 
   function calcCPL(channel) {
+    if (typeof gtag === "function") { gtag("event", "calculator_submit", {calculator_name: "cpl_calculator", page_title: document.title}); }
     const spend = parseFloat(document.getElementById(channel + '-spend').value);
     const leads = parseFloat(document.getElementById(channel + '-leads').value);
 
